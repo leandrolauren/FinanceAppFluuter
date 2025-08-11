@@ -62,7 +62,7 @@ class FinanceApp extends StatelessWidget {
         titleTextStyle: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
-          color: Colors.white,
+          color: const Color.fromARGB(255, 100, 100, 100),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
