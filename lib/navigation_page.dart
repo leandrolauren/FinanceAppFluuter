@@ -18,6 +18,8 @@ class NavigationPage extends StatelessWidget {
             onPressed: () async {
               final prefs = await SharedPreferences.getInstance();
               await prefs.remove('access_token');
+              await prefs.remove('token_expiry');
+              await prefs.remove('tickers');
               Navigator.pushReplacementNamed(context, '/login');
             },
           ),
