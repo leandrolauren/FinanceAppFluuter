@@ -25,7 +25,7 @@ class StockDetailsPage extends StatelessWidget {
             Text("Indústria: ${stockData['Industry']}"),
             const SizedBox(height: 20),
             Text(
-              "Preço Atual: \$${stockData['Actual Price']}",
+              "Preço Atual: \$${stockData['Actual Price'].toStringAsFixed(2)}",
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             Text("Fechamento Anterior: \$${stockData['Previous Close']}"),
@@ -39,12 +39,16 @@ class StockDetailsPage extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text("Market Cap: ${stockData['Market Cap']}"),
-            Text("P/E: ${stockData['P/E']}"),
+            Text("P/E: ${stockData['P/E'].toStringAsFixed(2)}"),
             Text("EBITDA: ${stockData['EBITDA']}"),
-            Text("Margem Bruta: ${stockData['Gross Margin']}%"),
-            Text("Margem Líquida: ${stockData['Net Margin']}%"),
             Text(
-              "Dividendo: ${stockData['Dividend Rate']} (${stockData['Dividend Yield']}%)",
+              "Margem Bruta: ${stockData['Gross Margin'].toStringAsFixed(2)}%",
+            ),
+            Text(
+              "Margem Líquida: ${stockData['Net Margin'].toStringAsFixed(2)}%",
+            ),
+            Text(
+              "Dividendo: ${stockData['Dividend Rate'] ?? '--'} (${stockData['Dividend Yield'] ?? ''}%)",
             ),
             const SizedBox(height: 20),
             Text(
