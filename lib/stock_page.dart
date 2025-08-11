@@ -156,7 +156,7 @@ class _StockPageState extends State<StockPage> {
 
                                   // Preço atual
                                   Text(
-                                    "R\$ ${stock['Actual Price']?.toStringAsFixed(2) ?? '--'}",
+                                    "\$ ${stock['Actual Price']?.toStringAsFixed(2) ?? '--'}",
                                     style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
