@@ -43,36 +43,39 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Login')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _usernameController,
-                decoration: InputDecoration(labelText: 'Usuário'),
-                validator: (value) =>
-                    value!.isEmpty ? 'Campo obrigatório' : null,
-              ),
-              SizedBox(height: 16),
-              TextFormField(
-                controller: _passwordController,
-                decoration: InputDecoration(labelText: 'Senha'),
-                obscureText: true,
-                validator: (value) =>
-                    value!.isEmpty ? 'Campo obrigatório' : null,
-              ),
-              SizedBox(height: 24),
-              if (_errorMessage != null)
-                Text(_errorMessage!, style: TextStyle(color: Colors.red)),
-              SizedBox(height: 16),
-              _isLoading
-                  ? CircularProgressIndicator()
-                  : ElevatedButton(onPressed: _login, child: Text('Entrar')),
-            ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: AppBar(title: Text('Login')),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: _usernameController,
+                  decoration: InputDecoration(labelText: 'Usuário'),
+                  validator: (value) =>
+                      value!.isEmpty ? 'Campo obrigatório' : null,
+                ),
+                SizedBox(height: 16),
+                TextFormField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(labelText: 'Senha'),
+                  obscureText: true,
+                  validator: (value) =>
+                      value!.isEmpty ? 'Campo obrigatório' : null,
+                ),
+                SizedBox(height: 24),
+                if (_errorMessage != null)
+                  Text(_errorMessage!, style: TextStyle(color: Colors.red)),
+                SizedBox(height: 16),
+                _isLoading
+                    ? CircularProgressIndicator()
+                    : ElevatedButton(onPressed: _login, child: Text('Entrar')),
+              ],
+            ),
           ),
         ),
       ),
