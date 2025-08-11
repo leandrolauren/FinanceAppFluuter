@@ -6,14 +6,11 @@ import 'services.dart';
 import 'auth_middleware.dart';
 
 void main() async {
-  // Garante a inicialização dos bindings do Flutter
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Inicializa dependências
   final prefs = await SharedPreferences.getInstance();
   final apiService = ApiService();
 
-  // Verifica autenticação válida
   bool isAuthenticated = false;
   try {
     if (prefs.getString('access_token') != null) {
@@ -36,7 +33,9 @@ class FinanceApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Finance App',
-      theme: _buildAppTheme(),
+      theme: _buildLightTheme(),
+      darkTheme: _buildDarkTheme(),
+      themeMode: ThemeMode.system,
       initialRoute: isAuthenticated
           ? NavigationPage.routeName
           : LoginPage.routeName,
@@ -47,16 +46,14 @@ class FinanceApp extends StatelessWidget {
       navigatorObservers: [authMiddleware],
       debugShowCheckedModeBanner: false,
       onGenerateRoute: (settings) {
-        return MaterialPageRoute(
-          builder: (context) =>
-              Scaffold(body: Center(child: Text('Rota não encontrada'))),
-        );
+        return MaterialPageRoute(builder: (context) => LoginPage());
       },
     );
   }
 
-  ThemeData _buildAppTheme() {
+  ThemeData _buildLightTheme() {
     return ThemeData(
+      brightness: Brightness.light,
       primarySwatch: Colors.blue,
       visualDensity: VisualDensity.adaptivePlatformDensity,
       appBarTheme: AppBarTheme(
@@ -77,6 +74,50 @@ class FinanceApp extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 14),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
+      ),
+      cardTheme: CardThemeData(
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      ),
+      textTheme: TextTheme(
+        bodyLarge: TextStyle(color: Colors.black87),
+        bodyMedium: TextStyle(color: Colors.black54),
+      ),
+    );
+  }
+
+  ThemeData _buildDarkTheme() {
+    return ThemeData(
+      brightness: Brightness.dark,
+      primarySwatch: Colors.blue,
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+      appBarTheme: AppBarTheme(
+        centerTitle: true,
+        elevation: 0,
+        titleTextStyle: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.symmetric(vertical: 14),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        ),
+      ),
+      cardTheme: CardThemeData(
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        color: Colors.grey[850],
+      ),
+      textTheme: TextTheme(
+        bodyLarge: TextStyle(color: Colors.white70),
+        bodyMedium: TextStyle(color: Colors.white60),
       ),
     );
   }
